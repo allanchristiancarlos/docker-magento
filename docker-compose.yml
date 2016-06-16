@@ -1,0 +1,20 @@
+version: "2.0"
+
+services: 
+  app: 
+    build: app/.
+    networks:
+      - frontend
+  server:
+    image: nginx:1.10.1
+    links:
+      - app
+    networks:
+      - frontend
+    volumes:
+      - ./app/public:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+
+networks:
+  frontend:
